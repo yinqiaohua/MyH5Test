@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <title>直播示例</title>
+</head>
+<body>
+<script src="http://imgcache.qq.com/tencentvideo_v1/tvp/js/tvp.player_v2.js" type="text/javascript" ></script>
+
+<div id="mod_player"></div>
+<p id="btn1" style="background: red;color:#fff; line-height:30px;text-align:center;">进入全屏</p>
+<script>
+
+    tvp.$.getScript('./setting.js?t='+ (+new Date()), function(){
+
+        var video = new tvp.VideoInfo();
+// 100105501
+// 100003600
+// 100209800
+// tvpSetting.lid
+        video.setChannelId('100105501');
+        var player = new tvp.Player();
+        player.create({
+            width  : tvpSetting.width,
+            height : tvpSetting.height,
+            video  : video,
+            modId  : "mod_player",
+            playerType: 'html5',
+            type: 1,//不同的值对应的是什么类型的播放器？
+            isHtml5UseFakeFullScreen: true,
+            onplaying: function(){
+                tvp.$('#btn1').css({'background':'green'});//在播放过程中，“进入全屏”的banner背景色变为绿色
+            },
+            onwrite: function(){
+                // var p = this.getPlayer();
+                // var self = this;
+                // tvp.$(p).on('ended', function(){
+                //   alert('video ended');
+                //   alert(p.ended);
+                // }).on('pause', function(){
+                //   // alert('video pause');
+                //   // alert(p.duration);
+                //   // alert(p.currentTime);
+                //   // self.showError('0','4');
+                //   // self.callCBEvent("onerror", 0, 4);
+                // });
+            }
+        });
+
+
+        tvp.$('#btn1').on('click', function(){
+            player.enterFullScreen();
+        })
+    });
+
+
+</script>
+</body>
+</html>
